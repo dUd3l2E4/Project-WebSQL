@@ -19,7 +19,7 @@ const sqlite3=Object.assign(Object.create(null),{[Symbol.toStringTag]:"sqlite3",
                 args.push(row[col]);
                 inj2.push('?');
             }
-            code.push(['INSERT INTO ' + tbl.tbl_name + '(' + inj.join(',') + ') VALUES (' + inj2.join(',') + ')',args]);
+            code.push(['INSERT INTO ' + tbl.tbl_name + '(' + inj1.join(',') + ') VALUES (' + inj2.join(',') + ')',args]);
         }
     }
     var cache = await caches.open("sqlite3");
