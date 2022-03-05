@@ -23,5 +23,6 @@ const sqlite3=Object.assign(Object.create(null),{[Symbol.toStringTag]:"sqlite3",
         }
     }
     var cache = await caches.open("sqlite3");
-    return cache.put(this.file,new Response(JSON.stringify(code)));
+    await cache.put(this.file,new Response(JSON.stringify(code)));
+    return new Blob([JSON.stringify(code)]);
 }})}});
