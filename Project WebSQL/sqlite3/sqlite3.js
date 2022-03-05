@@ -11,11 +11,11 @@ const sqlite3=Object.assign(Object.create(null),{[Symbol.toStringTag]:"sqlite3",
         let rows = await sql.execute("select * from " + tbl.tbl_name);
         for(let row of rows) {
             let args = [], inj1 = [], inj2 = [];
-            for(let col of row) {
+            for(let col in row) {
                 args.push(col);
                 inj1.push('?');
             }
-            for(let col of row) {
+            for(let col in row) {
                 args.push(row[col]);
                 inj2.push('?');
             }
