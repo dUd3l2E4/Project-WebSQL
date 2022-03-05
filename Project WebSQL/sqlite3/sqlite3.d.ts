@@ -1,11 +1,12 @@
 declare namespace sqlite3 {
     interface Connection {
-        cursor(): Promise<sqlite3.Cursor>;
+        cursor(): sqlite3.Cursor;
+        commit(): Promise<Blob>;
     }
     interface Cursor {
         execute(sql: string, args?: string[]): Promise<SQLResultSetRowList>;
     }
-    function connect(path: string, size?: number): sqlite3.Connection;
+    function connect(path: string, size?: number): Promise<sqlite3.Connection>;
 }
 interface SQLResultSetRowList {
     readonly [index: number]: {
@@ -18,10 +19,3 @@ interface SQLResultSet {
     readonly rows: SQLResultSetRowList;
     readonly rowsAffected: number;
 }
-interface SQLTransaction {
-    executeSql(query: string, and: string[], cb: (tx: SQLTransaction, res: SQLResultSet) => void, er: (er: Error) => void);
-}
-interface Database {
-    transaction(callback: (tx: SQLTransaction) => void): void;
-}
-declare function openDatabase(id: string): Database;
